@@ -28,9 +28,16 @@ export default function AddProduct() {
 
     setLoading(true);
     try {
-      await addProduct(form);
+      // Convert price to number before sending
+      const productData = {
+        ...form,
+        price: Number(form.price),
+      };
+      await addProduct(productData);
+      alert("✅ Product added successfully!");
       navigate("/");
     } catch (error) {
+      console.error("Error adding product:", error);
       alert("❌ Failed to add product. Please try again.");
     }
     setLoading(false);

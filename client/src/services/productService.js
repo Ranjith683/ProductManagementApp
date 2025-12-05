@@ -7,7 +7,15 @@ export const getProducts = (search, sort) =>
 
 export const getProduct = (id) => axios.get(`${API}/${id}`);
 
-export const addProduct = (data) => axios.post(API, data);
+export const addProduct = (data) => {
+  return axios.post(API, data).catch((error) => {
+    console.error(
+      "Product service error:",
+      error.response?.data || error.message
+    );
+    throw error;
+  });
+};
 
 export const updateProduct = (id, data) => axios.put(`${API}/${id}`, data);
 
